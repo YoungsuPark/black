@@ -10,7 +10,7 @@
 	<mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean id="loggerInterceptor" class="com.javap.common.logger.LoggerInterceptor"></bean>
+            <bean id="loggerInterceptor" class="com.javap.common.logger.Logger"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
     
