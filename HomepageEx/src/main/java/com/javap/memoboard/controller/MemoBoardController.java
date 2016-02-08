@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.javap.common.common.CommandMap;
+import com.javap.common.commandmap.CommandMap;
 import com.javap.memoboard.service.MemoBoardService;
 
 @Controller

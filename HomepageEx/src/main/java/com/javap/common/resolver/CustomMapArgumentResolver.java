@@ -10,7 +10,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.javap.common.common.CommandMap;
+import com.javap.common.commandmap.CommandMap;
 
 public class CustomMapArgumentResolver implements HandlerMethodArgumentResolver{
 
