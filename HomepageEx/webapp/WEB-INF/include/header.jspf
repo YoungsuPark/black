@@ -1,0 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- below 3 lines for bootstrap -->
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="/css/jumbotron.css" rel="stylesheet">
+<link href="/css/ui.css" rel="stylesheet" />
