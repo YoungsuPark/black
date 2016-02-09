@@ -55,7 +55,6 @@ public class CommandMap {
 	
 	@Override
 	public String toString() {
-		
 		StringBuffer sb = new StringBuffer();
 		if(!map.isEmpty()) {
 			Iterator<Entry<String, Object>> iterator = map.entrySet().iterator();
