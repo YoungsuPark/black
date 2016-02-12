@@ -27,6 +27,11 @@
 						<button type="submit" class="btn btn-success">로그인</button>
 						<button type="button" class="btn btn-success" onclick="javascript:window.location='/member/openJoinPage.do'"> 회원가입</button>
 					</form>
+					<c:if test="${not empty errorMessage}">
+						<script type="text/javascript">
+							alert("아이디와 비밀번호를 다시 한번 확인해주세요");
+						</script>
+					</c:if>
 					</c:when>
 					<c:otherwise>
 						<form class="navbar-form navbar-right" action="/member/memberInfo.do" method="post">
