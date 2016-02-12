@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
+<html>
 <head>
 <%@ include file="/WEB-INF/include/header.jspf" %>
 </head>
@@ -46,7 +47,21 @@
 					</c:otherwise>
 				</c:choose>
 			</tbody>
-		</table>
+		</table>	
+		<ul class="pagination">
+		 	<li><a href = "/memoboard/openMemoBoardList.do?page=${currentPage -1}">&laquo;Previous</a></li>
+			<c:forEach begin="1" end="${numOfPages}" var="i">
+				<c:choose>
+					<c:when test="${currentPage eq i}">
+				 		<li><a>${i}</a></li>
+					</c:when>
+					<c:otherwise>
+					 	<li><a href = "/memoboard/openMemoBoardList.do?page=${i}">${i}</a></li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		 	<li><a href = "/memoboard/openMemoBoardList.do?page=${currentPage +1}">&laquo;Next</a></li>
+		</ul>		
 		<br/>
 		<a href="#this" class="btn" id="write">글쓰기</a>	
 		<%@ include file="/WEB-INF/include/include-body.jspf" %>
