@@ -14,6 +14,19 @@
  				MEMO_BOARD
  			WHERE
 				DEL_GB = 'N'
+			ORDER BY IDX DESC
+			LIMIT #{startNumPerPage}, #{recordPerPage}	
+ 		]]>	
+ 	</select>
+ 	
+ 	 <select id="numOfRecords" parameterType="Integer" resultType="Integer">
+ 		<![CDATA[
+ 			SELECT
+ 				COUNT(*)
+ 			FROM
+ 				MEMO_BOARD
+ 			WHERE
+				DEL_GB = 'N'
 			ORDER BY IDX DESC	
  		]]>	
  	</select>
