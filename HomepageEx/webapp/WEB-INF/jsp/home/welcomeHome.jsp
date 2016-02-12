@@ -12,10 +12,7 @@
 	<div class="jumbotron">
 		<div class="container">
 			<h2><c:out value="${sessionScope.sessionId}" /> 님 안녕하세요. </h2>
-			<p>스프링 프레임워크를 이용한 웹 페이지 연습중입니다.</p>
-			<c:if test="${not empty errorMessage }">
-				<p><c:out value="${errorMessage}"></c:out></p>
-			</c:if>
+			<p>스프링 프레임워크를 이용한 웹 페이지 연습중입니다.</p>   
 		</div>
 	</div>
 	<div class="container">
