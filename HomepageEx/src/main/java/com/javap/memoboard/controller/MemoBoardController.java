@@ -1,6 +1,5 @@
 package com.javap.memoboard.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -20,18 +19,14 @@ public class MemoBoardController {
 	@Resource(name="mbService")
 	private MemoBoardService mbService;
 	
-	@RequestMapping(value="/memoboard/testMapArgumentResolver.do")
-	public ModelAndView testMapArgumentResolver(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("");
-		log.debug(commandMap.toString());
-		return mv; 
-	}
-	
 	@RequestMapping(value="/memoboard/openMemoBoardList.do")
-	public ModelAndView openMemoBoardList(Map<String, Object> commandMap) throws Exception {
+	public ModelAndView openMemoBoardList(CommandMap commandMap) throws Exception {
+		log.debug("commandMap : " + commandMap.getMap());
 		ModelAndView mv = new ModelAndView("/memoboard/memoBoardList");	
-		List<Map<String, Object>> list = mbService.selectBoardList(commandMap);
-		mv.addObject("list", list);
+		Map<String, Object> resultMap = mbService.selectBoardList(commandMap.getMap());
+		mv.addObject("list", resultMap.get("list"));
+		mv.addObject("currentPage", resultMap.get("currentPage"));
+		mv.addObject("numOfPages", resultMap.get("numOfPages"));
 		return mv;
 	}
 	
