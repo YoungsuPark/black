@@ -34,8 +34,17 @@ public class MemoBoardDAO extends AbstractDAO {
 		
 	}
 
-	public void deleteMemoBoard(Map<String, Object> map) {
+	public void deleteMemoBoard(Map<String, Object> map) throws Exception{
 		update("memoboard.deleteBoard", map);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getNumOfRecords(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>) selectOne("memoboard.countRecords", map);
+	}
+
+	public int numOfRecords() throws Exception {
+		return (int)getNums("memoboard.numOfRecords");
 	}
 	
 	
