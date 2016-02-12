@@ -31,18 +31,21 @@ public class MemberController {
 	public ModelAndView insertMember(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/home/welcomeHome.do");
 		memberService.insertMember(commandMap.getMap());
+		log.debug(commandMap);
 		return mv;
 	}
 	
 	@RequestMapping(value="/member/loginMember.do", method = RequestMethod.POST)
 	public ModelAndView loginMember(CommandMap commandMap, HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/home/welcomeHome.do");
-		Map<String, Object> map = memberService.loginMember(commandMap.getMap());
-		mv.addObject("memberInfo", map);
+		ModelAndView mv = new ModelAndView("/home/welcomeHome");
+		Map<String, Object> userCheck = memberService.loginMember(commandMap.getMap());
+		mv.addObject("memberInfo", userCheck);
 		
-		if( map != null ){
+		if( userCheck != null){
 			session.setAttribute("sessionId", commandMap.get("ID"));
-			session.setAttribute("ValidMem", "yes");
+			session.setAttribute("authId", commandMap.get("auth_id"));
+		} else {
+			mv.addObject("errorMessage", "아이디와 비밀번호를 다시 확인주세요.");
 		}
 		return mv;
 	}
@@ -59,6 +62,15 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView("/member/memberInfo_view");
 		Map<String, Object> map = memberService.memberInfo(commandMap.getMap());
 		mv.addObject("memberInfo", map);
+		log.debug(map);
+		return mv;
+	}
+	
+	@RequestMapping(value = "/member/openModifyMemberContentView.do", method = RequestMethod.POST)
+	public ModelAndView openModifyMemberContentView(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("/member/memberInfo_modify");
+		Map<String, Object> map = memberService.memberInfo(commandMap.getMap());
+		mv.addObject("memberInfo", map);
 		return mv;
 	}
 	
@@ -68,11 +80,11 @@ public class MemberController {
 		memberService.updateMember(commandMap.getMap());
 		return mv;
 	}
+	
 	@RequestMapping(value = "/member/deleteMember.do", method = RequestMethod.POST)
 	public ModelAndView deleteMember(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/home/welcomeHome.do");
 		memberService.deleteMember(commandMap.getMap());
 		return mv;
 	}
-	
 }
