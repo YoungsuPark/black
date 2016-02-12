@@ -1,5 +1,6 @@
 package com.javap.memoboard.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,8 +19,40 @@ public class MemoBoardServiceImpl implements MemoBoardService {
 	private MemoBoardDAO mbDAO;
 	
 	@Override
-	public List<Map<String, Object>> selectBoardList(Map<String, Object> map) throws Exception {
-		return mbDAO.selectBoardList(map);
+	public Map<String, Object> selectBoardList(Map<String, Object> map) throws Exception {
+		
+		int numOfRecords = mbDAO.numOfRecords();
+		int recordPerPage = 2;
+		int numOfPages = (int)(numOfRecords / recordPerPage + (numOfRecords % recordPerPage == 0? 0:1));
+		int currentPage = 1;
+		
+		if(map.get("page") != null) {
+			currentPage = Integer.parseInt((String)(map.get("page")));
+			
+			if (currentPage == 0 ){
+				currentPage = 1;
+			} 
+			else if (currentPage > numOfPages){
+				currentPage = numOfPages;
+			}
+		}
+		
+		int startNumPerPage = recordPerPage * (currentPage - 1);
+		
+		map.put("startNumPerPage", startNumPerPage);
+		map.put("recordPerPage", recordPerPage);
+	
+		List<Map<String, Object>> list = mbDAO.selectBoardList(map);	
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("list", list);
+		resultMap.put("numOfPages", numOfPages);
+		resultMap.put("currentPage", currentPage);
+		log.debug("numOfPages : " + numOfPages);
+		log.debug("numOfRecords : " + numOfRecords);
+		log.debug("startNumPerPage : " + startNumPerPage);
+		log.debug("recordPerPage : " + recordPerPage);
+		log.debug("resultMap : " + resultMap);
+		return resultMap;
 	}
 	
 	@Override
