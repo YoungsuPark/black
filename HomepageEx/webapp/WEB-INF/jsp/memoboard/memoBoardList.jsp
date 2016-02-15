@@ -9,8 +9,8 @@
 <body>
 <%@ include file="/WEB-INF/include/body_nav.jspf" %>
 	<div class="container">
-		<h2>게시판 목록</h2>
-		<table class="board_list">
+		<h2 style="text-align:center">알림 게시판</h2>
+		<table class="board_list" >
 			<colgroup>
 				<col width="10%"/>
 				<col width="*"/>
@@ -19,10 +19,10 @@
 			</colgroup>
 			<thead>
 				<tr>
-					<th scope="col">글번호</th>
-					<th scope="col">제목</th>
-					<th scope="col">조회수</th>
-					<th scope="col">작성일</th>
+					<th scope="col" style="text-align:center">글번호</th>
+					<th scope="col" style="text-align:center">제목</th>
+					<th scope="col" style="text-align:center">조회수</th>
+					<th scope="col" style="text-align:center">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,13 +30,13 @@
 					<c:when test="${fn:length(list) > 0}">
 						<c:forEach items="${list}" var="row">
 							<tr>
-								<td>${row.IDX }</td>
+								<td>${row.IDX}</td>
 								<td class="title">
-									<a href="#this" name="title">${row.TITLE }</a>
-									<input type="hidden" id="IDX" value="${row.IDX }">
+									<a href="#this" name="title">${row.TITLE}</a>
+									<input type="hidden" id="IDX" value="${row.IDX}">
 								</td>
-								<td>${row.HIT_CNT }</td>
-								<td>${row.CREA_DTM }</td>
+								<td>${row.HIT_CNT}</td>
+								<td>${row.CREA_DTM}</td>
 							</tr>
 						</c:forEach>
 					</c:when>
@@ -47,23 +47,33 @@
 					</c:otherwise>
 				</c:choose>
 			</tbody>
-		</table>	
-		<ul class="pagination">
-		 	<li><a href = "/memoboard/openMemoBoardList.do?page=${currentPage -1}">&laquo;Previous</a></li>
-			<c:forEach begin="1" end="${numOfPages}" var="i">
-				<c:choose>
-					<c:when test="${currentPage eq i}">
-				 		<li><a>${i}</a></li>
-					</c:when>
-					<c:otherwise>
-					 	<li><a href = "/memoboard/openMemoBoardList.do?page=${i}">${i}</a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-		 	<li><a href = "/memoboard/openMemoBoardList.do?page=${currentPage +1}">&laquo;Next</a></li>
-		</ul>		
+		</table>
 		<br/>
-		<a href="#this" class="btn" id="write">글쓰기</a>	
+		<div class="text-right">
+			<a href="#this" class="btn" id="write">글쓰기</a>
+		</div>
+		<hr>
+		<div class="text-center">
+			<ul class="pagination">
+				<c:if test="${startPageNumPerGroup > pagesPerGroup }">
+					<li><a href = "/memoboard/openMemoBoardList.do?page=${startPageNumPerGroup-5}">&laquo;</a></li>
+				</c:if>
+				<c:forEach begin="${startPageNumPerGroup}" end="${endPageNumPerGroup}" var="i">
+					<c:choose>
+						<c:when test="${currentPage eq i}">
+					 		<li class="active" ><a>${i}</a></li>
+						</c:when>
+						<c:otherwise>
+						 	<li><a href = "/memoboard/openMemoBoardList.do?page=${i}">${i}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${endPageNumPerGroup - startPageNumPerGroup eq pagesPerGroup-1 }">
+					<li><a href = "/memoboard/openMemoBoardList.do?page=${startPageNumPerGroup+5}">&raquo;</a></li>
+				</c:if>
+			</ul>
+		</div>	
+		<br/>	
 		<%@ include file="/WEB-INF/include/include-body.jspf" %>
 		<%@ include file="/WEB-INF/include/body_footer.jspf" %>
 	</div>
