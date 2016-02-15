@@ -15,10 +15,10 @@
 					<col width="15%">
 					<col width="*"/>
 				</colgroup>
-				<caption>게시글 작성</caption>
+				<caption><h2 style="text-align:center">글쓰기</h2></caption>
 				<tbody>
 					<tr>
-						<th scope="row">제목</th>
+						<th scope="row" style="text-align:center">Title</th>
 						<td><input type="text" id="TITLE" name="TITLE" class="wdp_90"></input></td>
 					</tr>
 					<tr>
@@ -26,11 +26,16 @@
 							<textarea rows="20" cols="100" title="내용" id="CONTENTS" name="CONTENTS"></textarea>
 						</td>
 					</tr>
+
 				</tbody>
 			</table>
 		</form>	
-		<a href="#this" class="btn" id="write">작성하기</a>
-		<a href="#this" class="btn" id="list">목록으로</a>
+		<br />
+		<div class="left">
+			<a href="#this" class="btn" id="write">작성하기</a>
+			<a href="#this" class="btn" id="list">목록으로</a>
+		</div>
+		<br />
 		<%@ include file="/WEB-INF/include/include-body.jspf" %>
 		<%@ include file="/WEB-INF/include/body_footer.jspf" %>
 	</div>
