@@ -11,21 +11,35 @@
 	<%@ include file="/WEB-INF/include/body_nav.jspf" %>
 	<div class="jumbotron">
 		<div class="container">
-			<h2><c:out value="${sessionScope.sessionId}" /> 님 안녕하세요. </h2>
-			<p>스프링 프레임워크를 이용한 웹 페이지 연습중입니다.</p>   
+			<h1>JavaP</h1>
+			<h2>웹 페이지 학습을 위한 공간 입니다.</h2><br />
+			<c:if test="${ not empty sessionScope.sessionId}">
+				<p><c:out value="${sessionScope.sessionId}" /> 님 안녕하세요. </p>
+			</c:if>
+			<p>현재 1기 수강생들을 모집 중이오니 자세한 내용은 알림 게시판을 참고해 주시기 바랍니다.</p>   
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
-				<h2>안부 게시판</h2>
-				<p>서로 친하게 지내요~!</p>
-				<p><a class="btn btn-default" onclick="javascript:window.location='/memoboard/openMemoBoardList.do'" role="button"> 안부 게시판으로 이동 &raquo;</a></p>
+				<h2>알림 게시판</h2>
+				<p>업데이트 정보 확인</p>
+				<p><a class="btn btn-default" onclick="javascript:window.location='/memoboard/openMemoBoardList.do'" role="button"> 새로운 소식 확인 &raquo;</a></p>
 			</div>
 			<div class="col-md-4">
-				<h2>Spring FrameWork</h2>
-				<p>스프링이란!</p>
-				<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+				<h2>자바(JAVA)</h2>
+				<p>자바 학습하기</p>
+				<p><a class="btn btn-default" href="#" role="button">JAVA STUDY START &raquo;</a></p>
+			</div>
+			<div class="col-md-4">
+				<h2>JSP&SERVLET</h2>
+				<p>JSP&SERVLET 학습하기</p>
+				<p><a class="btn btn-default" href="#" role="button">JSP&SERVLET STUDY START &raquo;</a></p>
+			</div>
+			<div class="col-md-4">
+				<h2>스프링(Spring Framework)</h2>
+				<p>스프링 프레임워크 학습하기</p>
+				<p><a class="btn btn-default" href="#" role="button">SPRING STUDY START &raquo;</a></p>
 			</div>
 		</div>
 		<hr>
