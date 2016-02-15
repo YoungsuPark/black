@@ -6,7 +6,9 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.javap.common.commandmap.CommandMap;
@@ -26,7 +28,9 @@ public class MemoBoardController {
 		Map<String, Object> resultMap = mbService.selectBoardList(commandMap.getMap());
 		mv.addObject("list", resultMap.get("list"));
 		mv.addObject("currentPage", resultMap.get("currentPage"));
-		mv.addObject("numOfPages", resultMap.get("numOfPages"));
+		mv.addObject("pagesPerGroup", resultMap.get("pagesPerGroup"));
+		mv.addObject("startPageNumPerGroup", resultMap.get("startPageNumPerGroup"));
+		mv.addObject("endPageNumPerGroup", resultMap.get("endPageNumPerGroup"));
 		return mv;
 	}
 	
@@ -73,4 +77,14 @@ public class MemoBoardController {
 	    mbService.deleteMemoBoard(commandMap.getMap());
 	    return mv;
 	}
+	
+/*	@RequestMapping(value="/memo/{memoSeq}", method = RequestMethod.GET)
+	public ModelAndView memoDetail(@PathVariable("memoSeq") int memoSeq) throws Exception {
+		ModelAndView mv = new ModelAndView("/memoboard/memoBoardDetail");
+		CommandMap commandMap = new CommandMap();
+		commandMap.put("IDX", memoSeq);
+	    Map<String,Object> map = mbService.selectMemoBoardDetail(commandMap.getMap());
+	    mv.addObject("map", map);
+		return mv;
+	}*/
 }
