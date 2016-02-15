@@ -20,38 +20,39 @@ public class MemoBoardServiceImpl implements MemoBoardService {
 	
 	@Override
 	public Map<String, Object> selectBoardList(Map<String, Object> map) throws Exception {
+		int currentPage = 1; // 현재 페이지
+		int recordPerPage = 4; // 한 페이지당 보여줄 record 수
+		int pagesPerGroup = 5; // 한 그룹당 보여줄 page 수	
+		int numOfRecords = mbDAO.numOfRecords(); // 총 record 수
+		int numOfPages = (int)(numOfRecords / recordPerPage + (numOfRecords % recordPerPage == 0? 0:1)); // 총 페이지 수
 		
-		int numOfRecords = mbDAO.numOfRecords();
-		int recordPerPage = 2;
-		int numOfPages = (int)(numOfRecords / recordPerPage + (numOfRecords % recordPerPage == 0? 0:1));
-		int currentPage = 1;
-		
-		if(map.get("page") != null) {
+		if(map.get("page") != null){
 			currentPage = Integer.parseInt((String)(map.get("page")));
-			
-			if (currentPage == 0 ){
+			if(currentPage < 1){
 				currentPage = 1;
-			} 
-			else if (currentPage > numOfPages){
+			} else if(currentPage >= numOfPages){
 				currentPage = numOfPages;
 			}
 		}
+		int startNumPerPage = recordPerPage * (currentPage - 1); // 한 페이지 당 게시물의 스타트 번호 
+		int groupNum = (int)(currentPage / pagesPerGroup + (currentPage % pagesPerGroup == 0? 0:1)); // 현재 그룹
 		
-		int startNumPerPage = recordPerPage * (currentPage - 1);
-		
+		int endPageNumPerGroup = groupNum * pagesPerGroup; // 한 그룹당 끝 페이지 번호
+		int startPageNumPerGroup = endPageNumPerGroup - (pagesPerGroup - 1);
+		if(endPageNumPerGroup >= numOfPages){
+			endPageNumPerGroup = numOfPages;
+		}
 		map.put("startNumPerPage", startNumPerPage);
 		map.put("recordPerPage", recordPerPage);
-	
+		
 		List<Map<String, Object>> list = mbDAO.selectBoardList(map);	
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("list", list);
-		resultMap.put("numOfPages", numOfPages);
 		resultMap.put("currentPage", currentPage);
-		log.debug("numOfPages : " + numOfPages);
-		log.debug("numOfRecords : " + numOfRecords);
-		log.debug("startNumPerPage : " + startNumPerPage);
-		log.debug("recordPerPage : " + recordPerPage);
-		log.debug("resultMap : " + resultMap);
+		resultMap.put("pagesPerGroup", pagesPerGroup);
+		resultMap.put("startPageNumPerGroup", startPageNumPerGroup);
+		resultMap.put("endPageNumPerGroup", endPageNumPerGroup);
+		
 		return resultMap;
 	}
 	
