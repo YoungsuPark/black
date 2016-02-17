@@ -17,7 +17,7 @@
 					<col width="15%"/>
 					<col width="35%"/>
 				</colgroup>
-				<caption>게시글 상세</caption>
+				<caption><caption><h2 style="text-align:center">수정하기</h2></caption></caption>
 				<tbody>
 					<tr>
 						<th scope="row">글 번호</th>
@@ -48,9 +48,11 @@
 				</tbody>
 			</table>
 		</form>
+		<br />
 		<a href="#this" class="btn" id="list">목록으로</a>
 		<a href="#this" class="btn" id="update">저장하기</a>
 		<a href="#this" class="btn" id="delete">삭제하기</a>
+		<br /><hr>
 		<%@ include file="/WEB-INF/include/include-body.jspf" %>
 		<%@ include file="/WEB-INF/include/body_footer.jspf" %>
 	</div>
