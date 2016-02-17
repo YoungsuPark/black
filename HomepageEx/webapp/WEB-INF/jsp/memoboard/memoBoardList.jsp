@@ -32,6 +32,12 @@
 							<tr>
 								<td>${row.IDX}</td>
 								<td class="title">
+									<c:forEach begin="1" end="${row.INDENT}">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</c:forEach>	
+									<c:if test="${row.INDENT != 0}">
+										ㄴ
+									</c:if>
 									<a href="#this" name="title">${row.TITLE}</a>
 									<input type="hidden" id="IDX" value="${row.IDX}">
 								</td>
@@ -73,7 +79,7 @@
 				</c:if>
 			</ul>
 		</div>	
-		<br/>	
+		<br/>
 		<%@ include file="/WEB-INF/include/include-body.jspf" %>
 		<%@ include file="/WEB-INF/include/body_footer.jspf" %>
 	</div>
