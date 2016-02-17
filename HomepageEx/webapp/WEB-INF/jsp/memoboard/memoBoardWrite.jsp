@@ -10,7 +10,7 @@
 <%@ include file="/WEB-INF/include/body_nav.jspf" %>
 	<div class="container">
 		<form id="frm">
-			<table class="board_view">
+			<table class="board_list">
 				<colgroup>
 					<col width="15%">
 					<col width="*"/>
