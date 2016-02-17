@@ -17,7 +17,6 @@ public class MemoBoardDAO extends AbstractDAO {
 
 	public void insertMemoBoard(Map<String, Object> map) throws Exception {
 		insert("memoboard.insertBoard", map);
-		
 	}
 
 	public void updateHitCnt(Map<String, Object> map) throws Exception {
@@ -31,21 +30,29 @@ public class MemoBoardDAO extends AbstractDAO {
 
 	public void updateMemoBoard(Map<String, Object> map) throws Exception {
 		update("memoboard.updateBoard", map);
-		
 	}
 
 	public void deleteMemoBoard(Map<String, Object> map) throws Exception{
 		update("memoboard.deleteBoard", map);
 	}
 
-	@SuppressWarnings("unchecked")
-	public Map<String, Object> getNumOfRecords(Map<String, Object> map) throws Exception{
-		return (Map<String, Object>) selectOne("memoboard.countRecords", map);
-	}
-
 	public int numOfRecords() throws Exception {
 		return (int)getNums("memoboard.numOfRecords");
 	}
-	
-	
+
+	public void insertReply(Map<String, Object> map) throws Exception {
+		insert("memoboard.insertReply", map);	
+	}
+
+	public void updateFamliy(Map<String, Object> map) throws Exception {
+		update("memoboard.updateFamliy", map);	
+	}
+
+	public void updateDepth(Map<String, Object> map)throws Exception {
+		update("memoboard.updateDepth", map);
+	}
+
+	public int checkReply(Map<String, Object> map) throws Exception{
+		return (int)getNums("memoboard.numOfParents", map);
+	}
 }

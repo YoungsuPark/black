@@ -9,12 +9,16 @@
  				IDX,
  				TITLE,
  				HIT_CNT,
- 				CREA_DTM
+ 				CREA_DTM,
+ 				FAMILY,
+	            PARENT,
+	            DEPTH,
+	            INDENT
  			FROM
  				MEMO_BOARD
  			WHERE
 				DEL_GB = 'N'
-			ORDER BY IDX DESC
+			ORDER BY FAMILY DESC, DEPTH ASC
 			LIMIT #{startNumPerPage}, #{recordPerPage}	
  		]]>	
  	</select>
@@ -32,15 +36,22 @@
  	</select>
  	
 	<insert id="insertBoard" parameterType="hashmap">
+		<selectKey keyProperty="idx" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
 	  	<![CDATA[
 	        INSERT INTO MEMO_BOARD
-	        (
+	        (	
 	            TITLE, 
 	            CONTENTS, 
 	            HIT_CNT, 
 	            DEL_GB, 
 	            CREA_DTM, 
-	            CREA_ID
+	            CREA_ID,
+	            FAMILY,
+	            PARENT,
+	            DEPTH,
+	            INDENT
 	        )
 	        VALUES
 	        (
@@ -49,7 +60,11 @@
 	            0, 
 	            'N', 
 	            SYSDATE(), 
-	            'Admin'
+	            'Admin',
+	           	0,
+	            0,
+	            0,
+	            0
 	        )
 	    ]]>
 	</insert>
@@ -63,7 +78,27 @@
 	            IDX = #{IDX}    
 	    ]]>
 	</update>
- 
+	
+	<update id="updateFamliy" parameterType="hashmap">
+		<![CDATA[
+			UPDATE MEMO_BOARD
+			SET
+				FAMILY = #{IDX}
+			WHERE 
+				IDX = #{IDX}
+		]]>
+	</update>
+	
+	<update id="updateDepth" parameterType="hashmap">
+		<![CDATA[
+			UPDATE MEMO_BOARD
+			SET 
+				DEPTH = DEPTH + 1
+			WHERE 
+				FAMILY = #{FAMILY} AND DEPTH > #{DEPTH}
+		]]>
+	</update>
+	
 	<select id="selectBoardDetail" parameterType="hashmap" resultType="hashmap">
 	    <![CDATA[
 	        SELECT
@@ -72,7 +107,11 @@
 	            CREA_ID,
 	            CREA_DTM,
 	            TITLE,
-	            CONTENTS
+	            CONTENTS,
+	            FAMILY,
+	            PARENT,
+	            DEPTH,
+	            INDENT
 	        FROM
 	            MEMO_BOARD
 	        WHERE
@@ -100,4 +139,46 @@
 	            IDX = #{IDX}
 	    ]]>
 	</update>
+	
+	<insert id="insertReply" parameterType="hashmap">
+		<![CDATA[
+	        INSERT INTO MEMO_BOARD
+	        (
+	            TITLE, 
+	            CONTENTS, 
+	            HIT_CNT, 
+	            DEL_GB, 
+	            CREA_DTM, 
+	            CREA_ID,
+	            FAMILY,
+	            PARENT,
+	            DEPTH,
+	            INDENT
+	        )
+	        VALUES
+	        (
+	            #{TITLE}, 
+	            #{CONTENTS}, 
+	            0, 
+	            'N', 
+	            SYSDATE(), 
+	            'Admin',
+           		#{FAMILY},
+	            #{IDX},
+	            #{DEPTH} + 1,
+	            #{INDENT} + 1
+	        )
+	    ]]>
+	</insert>
+	
+	 <select id="numOfParents" parameterType="hashmap" resultType="Integer">
+ 		<![CDATA[
+ 			SELECT 
+ 				COUNT(*)
+ 			FROM
+ 				MEMO_BOARD
+ 			WHERE 
+ 				PARENT = #{IDX}
+ 		]]>
+ 	</select>
  </mapper>

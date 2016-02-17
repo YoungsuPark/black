@@ -21,7 +21,7 @@ public class MemoBoardServiceImpl implements MemoBoardService {
 	@Override
 	public Map<String, Object> selectBoardList(Map<String, Object> map) throws Exception {
 		int currentPage = 1; // 현재 페이지
-		int recordPerPage = 4; // 한 페이지당 보여줄 record 수
+		int recordPerPage = 10; // 한 페이지당 보여줄 record 수
 		int pagesPerGroup = 5; // 한 그룹당 보여줄 page 수	
 		int numOfRecords = mbDAO.numOfRecords(); // 총 record 수
 		int numOfPages = (int)(numOfRecords / recordPerPage + (numOfRecords % recordPerPage == 0? 0:1)); // 총 페이지 수
@@ -52,13 +52,17 @@ public class MemoBoardServiceImpl implements MemoBoardService {
 		resultMap.put("pagesPerGroup", pagesPerGroup);
 		resultMap.put("startPageNumPerGroup", startPageNumPerGroup);
 		resultMap.put("endPageNumPerGroup", endPageNumPerGroup);
-		
+	
 		return resultMap;
 	}
 	
 	@Override
 	public void insertMemoBoard(Map<String, Object> map) throws Exception {
-		mbDAO.insertMemoBoard(map);	
+		mbDAO.insertMemoBoard(map);
+		if(map != null){
+			map.put("IDX", (int)map.get("idx"));
+			mbDAO.updateFamliy(map);
+		}
 	}
 	
 	@Override
@@ -74,7 +78,21 @@ public class MemoBoardServiceImpl implements MemoBoardService {
 	}
 	
 	@Override
-	public void deleteMemoBoard(Map<String, Object> map) throws Exception {
-		mbDAO.deleteMemoBoard(map);		
+	public Map<String, Object> deleteMemoBoard(Map<String, Object> map) throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		int checkReply = mbDAO.checkReply(map);
+		if(checkReply == 0){
+			mbDAO.deleteMemoBoard(map);	
+			resultMap.put("deleteMessage", "삭제되었습니다.");
+		} else {
+			resultMap.put("deleteMessage", "댓글이 달린 글은 삭제 할 수 없습니다.");
+		}
+		return resultMap;
+	}
+	
+	@Override
+	public void insetReply(Map<String, Object> map) throws Exception {
+		mbDAO.updateDepth(map);
+		mbDAO.insertReply(map);
 	}
 }
