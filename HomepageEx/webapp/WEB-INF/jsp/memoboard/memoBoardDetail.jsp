@@ -47,9 +47,15 @@
 		</c:if>
 		<div>
 		<a href="#this" class="btn" id="list">목록으로</a>
-		<a href="#this" class="btn" id="update">수정하기</a>
-		<a href="#this" class="btn" id="delete">삭제하기</a>
-		<a href="#this" class="btn" id="reply">답글쓰기</a>
+		<c:choose>
+			<c:when test="${map.PARENT == -1}">
+			</c:when>
+			<c:otherwise>
+				<a href="#this" class="btn" id="update">수정하기</a>
+				<a href="#this" class="btn" id="delete">삭제하기</a>
+				<a href="#this" class="btn" id="reply">답글쓰기</a>
+			</c:otherwise>
+		</c:choose>
 		</div>
 		<br /><hr>
 		<%@ include file="/WEB-INF/include/include-body.jspf" %>
@@ -101,6 +107,7 @@
 		}
 		
 		function fn_deleteBoard(){
+			confirm("해당 게시물을 삭제하시겠습니까?")
 			var idx = "${map.IDX}";
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/memoboard/deleteMemoBoard.do' />");
