@@ -9,7 +9,7 @@
 <body>
 <%@ include file="/WEB-INF/include/body_nav.jspf" %>
 	<div class="container">
-		<form id="frm">
+		<form id="frm" name="frm" enctype="multipart/form-data">
 			<table class="board_list">
 				<colgroup>
 					<col width="15%">
@@ -26,11 +26,12 @@
 							<textarea rows="20" cols="100" title="내용" id="CONTENTS" name="CONTENTS"></textarea>
 						</td>
 					</tr>
-
 				</tbody>
 			</table>
+			<br />
+			<input type="file" name="file">
+			<hr />
 		</form>	
-		<br />
 		<div class="left">
 			<a href="#this" class="btn" id="write">작성하기</a>
 			<a href="#this" class="btn" id="list">목록으로</a>
