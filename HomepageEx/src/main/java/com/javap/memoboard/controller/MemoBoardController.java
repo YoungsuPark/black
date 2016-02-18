@@ -3,6 +3,7 @@ package com.javap.memoboard.controller;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,8 @@ public class MemoBoardController {
 	private MemoBoardService mbService;
 	
 	/**
-	 * 게시판 리스트 목록 보기
+	 * Controller : 게시판 리스트 목록 보기 요청에 해당하는비즈니스 로직(mbService.selectBoardList())에 연결. 
+	 * 				게시판 리스트, 페이징처리에 필요한 값들을 모델에 저장 후 View(memoBoardList.jsp)에 렌더링.
 	 * @param commandMap
 	 * @return
 	 * @throws Exception
@@ -37,7 +39,8 @@ public class MemoBoardController {
 		return mv;
 	}
 	/**
-	 * 게시판 작성하기 페이지로 이동
+	 * Controller : 게시판 작성하기 페이지로 이동 요청.
+	 * 			    View(memoBoardWrite.jsp)로 이동.
 	 * @param commandMap
 	 * @return
 	 * @throws Exception
@@ -48,15 +51,15 @@ public class MemoBoardController {
 	    return mv;
 	}
 	/**
-	 * 게시물 작성하기
+	 * 컨트롤러 : "게시물 작성 하기" 로직에 맵핑, 게시판 목록으로 이동
 	 * @param commandMap
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/memoboard/insertMemoBoard.do")
-	public ModelAndView insertMemoBoard(CommandMap commandMap) throws Exception{
+	public ModelAndView insertMemoBoard(CommandMap commandMap, HttpServletRequest request) throws Exception{
 	    ModelAndView mv = new ModelAndView("redirect:/memoboard/openMemoBoardList.do");
-	    mbService.insertMemoBoard(commandMap.getMap());
+	    mbService.insertMemoBoard(commandMap.getMap(), request);
 	    return mv;
 	}
 	/**
@@ -107,9 +110,7 @@ public class MemoBoardController {
 	@RequestMapping(value="/memoboard/deleteMemoBoard.do")
 	public ModelAndView deleteBoard(CommandMap commandMap) throws Exception{
 	    ModelAndView mv = new ModelAndView("redirect:/memoboard/openMemoBoardList.do");
-	    Map<String, Object> map = mbService.deleteMemoBoard(commandMap.getMap());
-	    log.debug("message : " + map);
-	    mv.addObject("deleteMessage", map);
+	    mbService.deleteMemoBoard(commandMap.getMap());
 	    return mv;
 	}
 	
