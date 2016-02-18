@@ -25,7 +25,13 @@ public class FileUtil {
 	public static String getRandomString(){
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
-	
+	/**
+	 * 첨부된 파일을 입력 시키기 위한 파일의 정보를 가공 해주는 메서드
+	 * @param map
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Map<String, Object>> InsertFileInfo(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> iterator = multipartRequest.getFileNames();
