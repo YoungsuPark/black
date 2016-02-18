@@ -140,6 +140,18 @@
 	    ]]>
 	</update>
 	
+	<update id="deleteParentBoard" parameterType="hashmap">
+	    <![CDATA[
+	        UPDATE MEMO_BOARD
+	        SET
+	            TITLE = '<< 해당 게시물이 삭제 되었습니다 >> ',
+	            CONTENTS = 'deleted',
+	            PARENT = -1
+	        WHERE
+	            IDX = #{IDX}
+	    ]]>
+	</update>
+	
 	<insert id="insertReply" parameterType="hashmap">
 		<![CDATA[
 	        INSERT INTO MEMO_BOARD
@@ -171,7 +183,7 @@
 	    ]]>
 	</insert>
 	
-	 <select id="numOfParents" parameterType="hashmap" resultType="Integer">
+	<select id="numOfParents" parameterType="hashmap" resultType="Integer">
  		<![CDATA[
  			SELECT 
  				COUNT(*)
@@ -181,4 +193,28 @@
  				PARENT = #{IDX}
  		]]>
  	</select>
+ 	
+ 	<insert id="insertFile" parameterType="hashmap">
+ 		<![CDATA[
+ 			INSERT INTO FILES
+ 			(
+ 				BOARD_IDX,
+ 				ORIGINAL_FILE_NAME,
+ 				STORED_FILE_NAME,
+ 				FILE_SIZE,
+ 				CREATE_DTM,
+ 				CREATE_ID
+ 			)
+ 			VALUES
+ 			(
+ 				#{BOARD_IDX},
+ 				#{ORIGINAL_FILE_NAME},
+ 				#{STORED_FILE_NAME},
+ 				#{FILE_SIZE},
+ 				SYSDATE(),
+ 				'Admin'
+ 			)
+ 		]]>
+ 	</insert>
+ 	
  </mapper>
