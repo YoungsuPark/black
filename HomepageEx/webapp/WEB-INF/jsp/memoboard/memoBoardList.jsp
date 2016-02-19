@@ -4,22 +4,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title></title>
 <%@ include file="/WEB-INF/include/header.jspf" %>
 </head>
 <body>
 <%@ include file="/WEB-INF/include/body_nav.jspf" %>
-	<div class="container"><br/>
+	<div class="container">
 		<h2 style="text-align:center">알림 게시판</h2>
-		<table id="example" class="display" cellspacing="0" width="100%">
-	        <thead>
-	            <tr>
-	                <th>글번호</th>
-	                <th>제목</th>
-	                <th>조회수</th>
-	                <th>작성일</th>
-	            </tr>
-	        </thead>
+		<table class="board_list" >
+			<colgroup>
+				<col width="10%"/>
+				<col width="*"/>
+				<col width="15%"/>
+				<col width="20%"/>
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col" style="text-align:center">글번호</th>
+					<th scope="col" style="text-align:center">제목</th>
+					<th scope="col" style="text-align:center">조회수</th>
+					<th scope="col" style="text-align:center">작성일</th>
+				</tr>
+			</thead>
 			<tbody>
 				<c:choose>
 					<c:when test="${fn:length(list) > 0}">
@@ -48,25 +53,38 @@
 					</c:otherwise>
 				</c:choose>
 			</tbody>
-	    </table><br />
+		</table>
+		<br/>
 		<div class="text-right">
 			<a href="#this" class="btn" id="write">글쓰기</a>
 		</div>
+		<hr>
+		<div class="text-center">
+			<ul class="pagination">
+				<c:if test="${startPageNumPerGroup > pagesPerGroup }">
+					<li><a href = "/memoboard/openMemoBoardList.do?page=${startPageNumPerGroup-5}">&laquo;</a></li>
+				</c:if>
+				<c:forEach begin="${startPageNumPerGroup}" end="${endPageNumPerGroup}" var="i">
+					<c:choose>
+						<c:when test="${currentPage eq i}">
+					 		<li class="active" ><a>${i}</a></li>
+						</c:when>
+						<c:otherwise>
+						 	<li><a href = "/memoboard/openMemoBoardList.do?page=${i}">${i}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${endPageNumPerGroup - startPageNumPerGroup eq pagesPerGroup-1 }">
+					<li><a href = "/memoboard/openMemoBoardList.do?page=${startPageNumPerGroup+5}">&raquo;</a></li>
+				</c:if>
+			</ul>
+		</div>	
+		<br/>
+		<%@ include file="/WEB-INF/include/include-body.jspf" %>
 		<%@ include file="/WEB-INF/include/body_footer.jspf" %>
 	</div>
-		<%@ include file="/WEB-INF/include/include-body.jspf" %>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/common.js" charset="utf-8"></script>
-	<script src="/js/members.js" charset="utf-8"></script>
+	<%@ include file="/WEB-INF/include/body_bottom.jspf" %>
 	<script type="text/javascript">
-	
-	    $(document).ready(function() {
-	        $('#example').DataTable();
-	    } );
-	    
 		$(document).ready(function(){
 			$("#write").on("click", function(e){ //글쓰기 버튼
 				e.preventDefault();
@@ -89,6 +107,6 @@
 			comSubmit.addParam("IDX", obj.parent().find("#IDX").val());
 			comSubmit.submit();
 		}
-	</script>		
+	</script>	
 </body>
 </html>
