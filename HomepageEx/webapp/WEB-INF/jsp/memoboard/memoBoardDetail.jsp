@@ -20,22 +20,39 @@
 			<tbody>
 				<tr>
 					<th scope="row">글 번호</th>
-					<td>${map.IDX }</td>
+					<td>${recordInfo.IDX }</td>
 					<th scope="row">조회수</th>
-					<td>${map.HIT_CNT }</td>
+					<td>${recordInfo.HIT_CNT }</td>
 				</tr>
 				<tr>
 					<th scope="row">작성자</th>
-					<td>${map.CREA_ID }</td>
+					<td>${recordInfo.CREA_ID }</td>
 					<th scope="row">작성시간</th>
-					<td>${map.CREA_DTM }</td>
+					<td>${recordInfo.CREA_DTM }</td>
 				</tr>
 				<tr>
 					<th scope="row">제목</th>
-					<td colspan="3">${map.TITLE }</td>
+					<td colspan="3">${recordInfo.TITLE }</td>
 				</tr>
 				<tr>
-					<td colspan="4">${map.CONTENTS }</td>
+					<td colspan="4">${recordInfo.CONTENTS }</td>
+				</tr>
+				<tr>
+					<th scope="row">첨부파일</th>
+					<td colspan="3">
+					<c:choose>
+						<c:when test="${fn:length(fileList) > 0 }">
+						<c:forEach var="row" items="${fileList }">
+							<input type="hidden" id="IDX" value="${row.IDX }">
+							<a href="#this" name="file">${row.ORIGINAL_FILE_NAME }</a>
+							(${row.FILE_SIZE }Kb)
+						</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<p>첨부 파일이 없습니다.</p>
+						</c:otherwise>
+					</c:choose>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -74,7 +91,7 @@
 				fn_openBoardUpdate();
 			});
 			
-			$("#reply").on("click", function(e){
+			$("#reply").on("click", function(e){ // 답변하기 버튼
 				e.preventDefault();
 				fn_openReplyWrite();
 			});
@@ -82,6 +99,11 @@
 			$("#delete").on("click", function(e){ //삭제하기 버튼
 				e.preventDefault();
 				fn_deleteBoard();
+			});
+			
+			$("a[name='file']").on("click", function(e){ // 파일 첨부하기 버튼
+				e.preventDefault();
+				fn_downloadFile($(this));
 			});
 		});
 		
@@ -92,14 +114,14 @@
 		}
 		
 		function fn_openBoardUpdate(){
-			var idx = "${map.IDX}";
+			var idx = "${recordInfo.IDX}";
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/memoboard/openMemoBoardUpdate.do' />");
 			comSubmit.addParam("IDX", idx);
 			comSubmit.submit();
 		}
 		function fn_openReplyWrite(){
-			var idx = "${map.IDX}";
+			var idx = "${recordInfo.IDX}";
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/memoboard/openReplyWrite.do' />");
 			comSubmit.addParam("IDX", idx);
@@ -108,9 +130,17 @@
 		
 		function fn_deleteBoard(){
 			confirm("해당 게시물을 삭제하시겠습니까?")
-			var idx = "${map.IDX}";
+			var idx = "${recordInfo.IDX}";
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/memoboard/deleteMemoBoard.do' />");
+			comSubmit.addParam("IDX", idx);
+			comSubmit.submit();
+		}
+		
+		function fn_downloadFile(obj){
+			var idx = obj.parent().find("#IDX").val();
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/file/downloadFile.do'/>");
 			comSubmit.addParam("IDX", idx);
 			comSubmit.submit();
 		}
