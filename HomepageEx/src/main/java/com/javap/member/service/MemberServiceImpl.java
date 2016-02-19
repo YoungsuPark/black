@@ -22,12 +22,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public Map<String, Object> loginMember(Map<String, Object> map) throws Exception {
-		Map<String, Object> resultMap = memberDAO.loginMember(map);
-		return resultMap;
-	}
-	
-	@Override
 	public Map<String, Object> memberInfo(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = memberDAO.memberInfo(map);
 		return resultMap;

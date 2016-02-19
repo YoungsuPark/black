@@ -7,8 +7,6 @@ public interface MemberService {
 	
 	void insertMember(Map<String, Object> map) throws Exception;
 	
-	Map<String, Object> loginMember(Map<String, Object> map) throws Exception;
-	
 	Map<String, Object> memberInfo(Map<String, Object> map) throws Exception;
 
 	void updateMember(Map<String, Object> map) throws Exception;
