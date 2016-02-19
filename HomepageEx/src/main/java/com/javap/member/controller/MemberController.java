@@ -3,7 +3,6 @@ package com.javap.member.controller;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -21,69 +20,67 @@ public class MemberController {
 	@Resource(name="memberService")
 	private MemberService memberService;
 	
-	@RequestMapping(value="/member/openJoinPage.do")
-	public ModelAndView openJoinPage(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/member/joinPage");
-		return mv;
-	}
-	
+	/**
+	 * 회원가입
+	 * @param commandMap
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/member/insertMember.do", method = RequestMethod.POST)
 	public ModelAndView insertMember(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/home/welcomeHome.do");
+		ModelAndView mv = new ModelAndView("redirect:/home/mainHome.do");
 		memberService.insertMember(commandMap.getMap());
 		log.debug(commandMap);
 		return mv;
 	}
-	
-	@RequestMapping(value="/member/loginMember.do", method = RequestMethod.POST)
-	public ModelAndView loginMember(CommandMap commandMap, HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView("/home/welcomeHome");
-		Map<String, Object> userCheck = memberService.loginMember(commandMap.getMap());
-		mv.addObject("memberInfo", userCheck);
-		
-		if( userCheck != null){
-			session.setAttribute("sessionId", commandMap.get("ID"));
-			session.setAttribute("authId", commandMap.get("auth_id"));
-		} else {
-			mv.addObject("errorMessage", "아이디와 비밀번호를 다시 확인주세요.");
-		}
-		return mv;
-	}
-	
-	@RequestMapping(value="/member/logoutMember.do")
-	public ModelAndView logoutMember(CommandMap commandMap, HttpSession session) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/home/welcomeHome.do");
-		session.invalidate();
-		return mv;
-	}
-
-	@RequestMapping(value = "/member/memberInfo.do", method = RequestMethod.POST)
+	/**
+	 * 회원정보 상세 보기
+	 * @param commandMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/member/memberInfoDetail.do", method = RequestMethod.POST)
 	public ModelAndView memberInfo(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/member/memberInfo_view");
+		ModelAndView mv = new ModelAndView("/member/memberInfoDetail");
 		Map<String, Object> map = memberService.memberInfo(commandMap.getMap());
 		mv.addObject("memberInfo", map);
 		log.debug(map);
 		return mv;
 	}
-	
-	@RequestMapping(value = "/member/openModifyMemberContentView.do", method = RequestMethod.POST)
+	/**
+	 * 회원정보 수정 페이지로 이동
+	 * @param commandMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/member/openMemberUpdatePage.do", method = RequestMethod.POST)
 	public ModelAndView openModifyMemberContentView(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/member/memberInfo_modify");
+		ModelAndView mv = new ModelAndView("/member/memberInfoUpdate");
 		Map<String, Object> map = memberService.memberInfo(commandMap.getMap());
 		mv.addObject("memberInfo", map);
 		return mv;
 	}
-	
+	/**
+	 * 회원정보 수정
+	 * @param commandMap
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/member/modifyMember.do", method = RequestMethod.POST)
 	public ModelAndView modifyMember(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/member/memberInfo_view");
+		ModelAndView mv = new ModelAndView("redirect:/member/memberInfoDetail.do");
 		memberService.updateMember(commandMap.getMap());
 		return mv;
 	}
-	
+	/**
+	 * 회원 탈퇴
+	 * @param commandMap
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/member/deleteMember.do", method = RequestMethod.POST)
 	public ModelAndView deleteMember(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/home/welcomeHome.do");
+		ModelAndView mv = new ModelAndView("redirect:/home/mailHome.do");
 		memberService.deleteMember(commandMap.getMap());
 		return mv;
 	}
