@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memoboard">
+
+	<select id="selectBoardList2" parameterType="hashmap"
+		resultType="hashmap">
+ 		<![CDATA[
+ 			SELECT
+ 				IDX,
+ 				TITLE,
+ 				HIT_CNT,
+ 				CREA_DTM,
+ 				FAMILY,
+	            PARENT,
+	            DEPTH,
+	            INDENT
+ 			FROM
+ 				MEMO_BOARD
+ 			WHERE
+				DEL_GB = 'N'
+			ORDER BY FAMILY DESC, DEPTH ASC	
+ 		]]>
+	</select>
+</mapper>
