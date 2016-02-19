@@ -53,6 +53,7 @@ public class FileUtil {
 		
 		while(iterator.hasNext()){
 			multipartFile = multipartRequest.getFile(iterator.next());
+			
 			if(multipartFile.isEmpty() == false){
 				originalFileName = multipartFile.getOriginalFilename();
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
@@ -64,7 +65,7 @@ public class FileUtil {
 				log.debug("storedFileName : " + storedFileName );
 				log.debug("size : " + multipartFile.getSize());
 				log.debug("-------------file end-------------\n");
-					
+
 				file = new File(filePath + storedFileName);
 				multipartFile.transferTo(file);
 				
