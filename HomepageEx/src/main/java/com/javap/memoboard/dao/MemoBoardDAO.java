@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.javap.common.dao.AbstractDAO;
 
 @Repository("mbDAO")
-public class MemoBoardDAO extends AbstractDAO {
+public class MemoBoardDAO extends AbstractDAO 
+{
 	/**
 	 * 게시판 한 페에지에 보여줄 목록의 데이터를 가져오는 메서드.
 	 * @param map
@@ -16,7 +17,8 @@ public class MemoBoardDAO extends AbstractDAO {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> selectBoardList(Map<String, Object> map) throws Exception{
+	public List<Map<String, Object>> selectBoardList(Map<String, Object> map) throws Exception
+	{
 		return (List<Map<String, Object>>)selectList("memoboard.selectBoardList", map);
 	}
 	
@@ -25,7 +27,8 @@ public class MemoBoardDAO extends AbstractDAO {
 	 * @param map
 	 * @throws Exception
 	 */
-	public void insertMemoBoard(Map<String, Object> map) throws Exception {
+	public void insertMemoBoard(Map<String, Object> map) throws Exception
+	{
 		insert("memoboard.insertBoard", map);
 	}
 	
@@ -34,10 +37,10 @@ public class MemoBoardDAO extends AbstractDAO {
 	 * @param map
 	 * @throws Exception
 	 */
-	public void inserFile(Map<String, Object> map) throws Exception {
+	public void inserFile(Map<String, Object> map) throws Exception
+	{
 		log.debug("DAO : " + map);
 		insert("memoboard.insertFile", map);
-		
 	}
 	
 	/**
@@ -45,7 +48,8 @@ public class MemoBoardDAO extends AbstractDAO {
 	 * @param map
 	 * @throws Exception
 	 */
-	public void updateHitCnt(Map<String, Object> map) throws Exception {
+	public void updateHitCnt(Map<String, Object> map) throws Exception
+	{
 		update("memoboard.updateHitCnt", map);
 	}
 	
@@ -56,7 +60,8 @@ public class MemoBoardDAO extends AbstractDAO {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> selectMemoBoardDetail(Map<String, Object> map) throws Exception {
+	public Map<String, Object> selectMemoBoardDetail(Map<String, Object> map) throws Exception
+	{
 		return (Map<String, Object>) selectOne("memoboard.selectBoardDetail", map);
 	}
 	
@@ -65,7 +70,8 @@ public class MemoBoardDAO extends AbstractDAO {
 	 * @param map
 	 * @throws Exception
 	 */
-	public void updateMemoBoard(Map<String, Object> map) throws Exception {
+	public void updateMemoBoard(Map<String, Object> map) throws Exception
+	{
 		update("memoboard.updateBoard", map);
 	}
 	
@@ -74,7 +80,8 @@ public class MemoBoardDAO extends AbstractDAO {
 	 * @param map
 	 * @throws Exception
 	 */
-	public void deleteMemoBoard(Map<String, Object> map) throws Exception{
+	public void deleteMemoBoard(Map<String, Object> map) throws Exception
+	{
 		update("memoboard.deleteBoard", map);
 	}
 	
@@ -83,7 +90,8 @@ public class MemoBoardDAO extends AbstractDAO {
 	 * @param map
 	 * @throws Exception
 	 */
-	public void deleteParaentMemoBoard(Map<String, Object> map) throws Exception{
+	public void deleteParaentMemoBoard(Map<String, Object> map) throws Exception
+	{
 		update("memoboard.deleteParentBoard", map);
 	}
 	
@@ -92,7 +100,8 @@ public class MemoBoardDAO extends AbstractDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public int numOfRecords() throws Exception {
+	public int numOfRecords() throws Exception 
+	{
 		return (int)getNums("memoboard.numOfRecords");
 	}
 	
@@ -101,7 +110,8 @@ public class MemoBoardDAO extends AbstractDAO {
 	 * @param map
 	 * @throws Exception
 	 */
-	public void insertReply(Map<String, Object> map) throws Exception {
+	public void insertReply(Map<String, Object> map) throws Exception
+	{
 		insert("memoboard.insertReply", map);	
 	}
 	
@@ -110,7 +120,8 @@ public class MemoBoardDAO extends AbstractDAO {
 	 * @param map
 	 * @throws Exception
 	 */
-	public void updateFamliy(Map<String, Object> map) throws Exception {
+	public void updateFamliy(Map<String, Object> map) throws Exception 
+	{
 		update("memoboard.updateFamliy", map);	
 	}
 	
@@ -119,7 +130,8 @@ public class MemoBoardDAO extends AbstractDAO {
 	 * @param map
 	 * @throws Exception
 	 */
-	public void updateDepth(Map<String, Object> map)throws Exception {
+	public void updateDepth(Map<String, Object> map)throws Exception
+	{
 		update("memoboard.updateDepth", map);
 	}
 	
@@ -129,10 +141,20 @@ public class MemoBoardDAO extends AbstractDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public int checkReply(Map<String, Object> map) throws Exception {
+	public int checkReply(Map<String, Object> map) throws Exception 
+	{
 		return (int)getNums("memoboard.numOfParents", map);
 	}
-
-
-
+	
+	/**
+	 * 첨부된 파일에 대한 데이터 조회 
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectFileList(Map<String, Object> map) throws Exception 
+	{
+		return (List<Map<String, Object>>)selectList("memoboard.selectFileList", map);
+	}
 }

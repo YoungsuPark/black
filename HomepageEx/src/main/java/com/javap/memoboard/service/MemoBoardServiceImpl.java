@@ -1,5 +1,6 @@
 package com.javap.memoboard.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +51,11 @@ public class MemoBoardServiceImpl implements MemoBoardService {
 	@Override
 	public Map<String, Object> selectMemoBoardDetail(Map<String, Object> map) throws Exception {
 		mbDAO.updateHitCnt(map);
-		Map<String, Object> resultMap = mbDAO.selectMemoBoardDetail(map);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Map<String, Object> recordInfo = mbDAO.selectMemoBoardDetail(map);
+		List<Map<String, Object>> fileList = mbDAO.selectFileList(map);
+		resultMap.put("recordInfo", recordInfo);
+		resultMap.put("fileList", fileList);
 		return resultMap;
 	}
 	
@@ -69,7 +74,9 @@ public class MemoBoardServiceImpl implements MemoBoardService {
 	
 	@Override
 	public void insetReply(Map<String, Object> map) throws Exception {
+		log.debug("updateDepth Map : " + map);
 		mbDAO.updateDepth(map);
+		log.debug("insertPeply Map : " + map);
 		mbDAO.insertReply(map);
 	}
 }

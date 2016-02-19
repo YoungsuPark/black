@@ -12,9 +12,9 @@ public class InterceptorLogin extends HandlerInterceptorAdapter {
 		String uri = request.getRequestURI();
 		
 		if( !uri.equals("/") 
-			&& !uri.equals("/home/welcomeHome.do") 
-			&& !uri.equals("/member/loginMember.do")
-			&& !uri.equals("/member/openJoinPage.do")
+			&& !uri.equals("/home/mainHome.do") 
+			&& !uri.equals("/home/login.do")
+			&& !uri.equals("/home/openJoinPage.do")
 			&& !uri.equals("/member/insertMember.do") ) 
 			{
 				if (id == null) 

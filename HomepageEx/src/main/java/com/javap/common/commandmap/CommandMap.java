@@ -62,7 +62,7 @@ public class CommandMap {
 			while(iterator.hasNext()){
 				entry = iterator.next();
 				
-				sb.append("key : " + entry.getKey() + ", value : " + entry.getValue());
+				sb.append("{key:" + entry.getKey() + ", value:" + entry.getValue() +"} ");
 			}
 		}
 		return sb.toString();

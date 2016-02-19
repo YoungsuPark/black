@@ -21,6 +21,7 @@ public class MemoBoardController {
 	private MemoBoardService mbService;
 	
 	/**
+	 * 목록 페이지로 이동
 	 * Controller : 게시판 리스트 목록 보기 요청에 해당하는비즈니스 로직(mbService.selectBoardList())에 연결. 
 	 * 				게시판 리스트, 페이징처리에 필요한 값들을 모델에 저장 후 View(memoBoardList.jsp)에 렌더링.
 	 * @param commandMap
@@ -39,8 +40,9 @@ public class MemoBoardController {
 		return mv;
 	}
 	/**
-	 * Controller : 게시판 작성하기 페이지로 이동 요청.
-	 * 			    View(memoBoardWrite.jsp)로 이동.
+	 * 글쓰기 페이지로 이동
+	 * Controller -> Service : None <br />
+	 * Controller -> View : /memoboard/memoBoardWrite.jsp 으로 이동.
 	 * @param commandMap
 	 * @return
 	 * @throws Exception
@@ -51,19 +53,26 @@ public class MemoBoardController {
 	    return mv;
 	}
 	/**
-	 * 컨트롤러 : "게시물 작성 하기" 로직에 맵핑, 게시판 목록으로 이동
-	 * @param commandMap
+	 * 게시글 작성
+	 * Controller -> Service : insertMemoBoard.java 로직에 맵핑 <br/>
+	 * Controller -> View : redirect:/memoboard/openMemoBoardList.do <br/>
+	 * 필요한 데이터를 모델에 추가한 후 게시판 목록보여주기로 리다이렉트.
+	 * @param commandMap, request
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/memoboard/insertMemoBoard.do")
 	public ModelAndView insertMemoBoard(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		log.debug("insert CommnadMap : " + commandMap);
+		log.debug("insert Reqeust : " + request.toString());
 	    ModelAndView mv = new ModelAndView("redirect:/memoboard/openMemoBoardList.do");
 	    mbService.insertMemoBoard(commandMap.getMap(), request);
 	    return mv;
 	}
 	/**
-	 * 게시물 상세보기
+	 * 게시글 상세보기
+	 * Controller -> Service : selectMemoBoardDetail.java 에 맵핑 <br />
+	 * Controller -> View : /memoboard/memoboardDetail.jsp 으로 이동
 	 * @param commandMap
 	 * @return
 	 * @throws Exception
@@ -72,7 +81,8 @@ public class MemoBoardController {
 	public ModelAndView openMemoBoardDetail(CommandMap commandMap) throws Exception{
 	    ModelAndView mv = new ModelAndView("/memoboard/memoBoardDetail");
 	    Map<String,Object> map = mbService.selectMemoBoardDetail(commandMap.getMap());
-	    mv.addObject("map", map);
+	    mv.addObject("recordInfo", map.get("recordInfo"));
+	    mv.addObject("fileList", map.get("fileList"));
 	    return mv;
 	}
 	/**
@@ -124,7 +134,7 @@ public class MemoBoardController {
 	public ModelAndView openReplyWrite(CommandMap commandMap)throws Exception{
 		ModelAndView mv = new ModelAndView("/memoboard/replyWrite");
 		Map<String, Object> map = mbService.selectMemoBoardDetail(commandMap.getMap());
-		mv.addObject("map", map);
+		mv.addObject("recordInfo", map.get("recordInfo"));
 		return mv;
 	}
 	/**
