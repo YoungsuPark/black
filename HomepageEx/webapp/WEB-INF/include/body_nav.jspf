@@ -9,7 +9,7 @@
 					<span class="icon-bar"> </span>
 					<span class="icon-bar"> </span>
 				</button>
-				<a class="navbar-brand" href="/home/welcomeHome.do"> HOME </a>
+				<a class="navbar-brand" href="/home/mainHome.do"> HOME </a>
 				<a class="navbar-brand" href="/memoboard/openMemoBoardList.do">Memo</a>
 				<a class="navbar-brand" href="">JAVA</a>
 				<a class="navbar-brand" href="">SPRING</a>
@@ -17,7 +17,7 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<c:choose>
 					<c:when test="${empty sessionScope.sessionId }">
-					<form class="navbar-form navbar-right" action="/member/loginMember.do" method="post">
+					<form class="navbar-form navbar-right" action="/home/login.do" method="post">
 						<div class="form-group">
 							<input type="text" id="id" name="ID"  placeholder="아이디" class="form-control">
 						</div>
@@ -25,11 +25,11 @@
 							<input type="password" id="password" name="PASSWORD" placeholder="비밀번호" class="form-control">
 						</div>
 						<button type="submit" class="btn btn-success">로그인</button>
-						<button type="button" class="btn btn-success" onclick="javascript:window.location='/member/openJoinPage.do'"> 회원가입</button>
+						<button type="button" class="btn btn-success" onclick="javascript:window.location='/home/openJoinPage.do'"> 회원가입</button>
 					</form>
-					<c:if test="${not empty errorMessage}">
+					<c:if test="${empty userInfo}">
 						<script type="text/javascript">
-							alert("아이디와 비밀번호를 다시 한번 확인해주세요");
+							alert("아이디와 비밀번호를 다시 한번 확인해 주시기 바랍니다.");
 						</script>
 					</c:if>
 					</c:when>
@@ -37,7 +37,7 @@
 						<form class="navbar-form navbar-right" action="/member/memberInfo.do" method="post">
 							<input type="hidden" id="id" name="ID" value="<c:out value="${sessionScope.sessionId}" />" class="form-control">
 							<button type="submit" class="btn btn-success"><c:out value="${sessionScope.sessionId}" /></button>
-							<button type="button" class="btn btn-success" onclick="javascript:window.location='/member/logoutMember.do'">로그아웃</button>
+							<button type="button" class="btn btn-success" onclick="javascript:window.location='/home/logout.do'">로그아웃</button>
 						</form>
 					</c:otherwise>
 				</c:choose>
