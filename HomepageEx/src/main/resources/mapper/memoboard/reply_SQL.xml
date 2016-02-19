@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
- <mapper namespace="memoboard">
- 		<insert id="insertReply" parameterType="hashmap">
+
+<mapper namespace="memoboard">
+	<insert id="insertReply" parameterType="hashmap">
 		<![CDATA[
 	        INSERT INTO MEMO_BOARD
 	        (
@@ -32,16 +32,25 @@
 	        )
 	    ]]>
 	</insert>
-	
-	<select id="numOfParents" parameterType="hashmap" resultType="Integer">
- 		<![CDATA[
- 			SELECT 
- 				COUNT(*)
- 			FROM
- 				MEMO_BOARD
- 			WHERE 
- 				PARENT = #{IDX}
- 		]]>
- 	</select>
- 
- </mapper>
+
+	<update id="updateFamliy" parameterType="hashmap">
+		<![CDATA[
+			UPDATE MEMO_BOARD
+			SET
+				FAMILY = #{IDX}
+			WHERE 
+				IDX = #{IDX}
+		]]>
+	</update>
+
+	<update id="updateDepth" parameterType="hashmap">
+		<![CDATA[
+			UPDATE MEMO_BOARD
+			SET 
+				DEPTH = DEPTH + 1
+			WHERE 
+				FAMILY = #{FAMILY} AND DEPTH > #{DEPTH}
+		]]>
+	</update>
+
+</mapper>
