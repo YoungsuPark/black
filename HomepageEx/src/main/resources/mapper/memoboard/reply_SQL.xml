@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="memoboard">
+ 		<insert id="insertReply" parameterType="hashmap">
+		<![CDATA[
+	        INSERT INTO MEMO_BOARD
+	        (
+	            TITLE, 
+	            CONTENTS, 
+	            HIT_CNT, 
+	            DEL_GB, 
+	            CREA_DTM, 
+	            CREA_ID,
+	            FAMILY,
+	            PARENT,
+	            DEPTH,
+	            INDENT
+	        )
+	        VALUES
+	        (
+	            #{TITLE}, 
+	            #{CONTENTS}, 
+	            0, 
+	            'N', 
+	            SYSDATE(), 
+	            'Admin',
+           		#{FAMILY},
+	            #{IDX},
+	            #{DEPTH} + 1,
+	            #{INDENT} + 1
+	        )
+	    ]]>
+	</insert>
+	
+	<select id="numOfParents" parameterType="hashmap" resultType="Integer">
+ 		<![CDATA[
+ 			SELECT 
+ 				COUNT(*)
+ 			FROM
+ 				MEMO_BOARD
+ 			WHERE 
+ 				PARENT = #{IDX}
+ 		]]>
+ 	</select>
+ 
+ </mapper>
