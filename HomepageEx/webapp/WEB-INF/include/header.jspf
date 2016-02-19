@@ -8,3 +8,4 @@
 <!-- Custom CSS -->
 <link href="/css/jumbotron.css" rel="stylesheet">
 <link href="/css/ui.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet">
