@@ -58,10 +58,10 @@
 			comSubmit.submit();
 		}
 		function fn_insertBoard(){
-			var idx = "${map.IDX}";
-			var family = "${map.FAMILY}";
-			var depth = "${map.DEPTH}";
-			var indent = "${map.INDENT}";
+			var idx = "${recordInfo.IDX}";
+			var family = "${recordInfo.FAMILY}";
+			var depth = "${recordInfo.DEPTH}";
+			var indent = "${recordInfo.INDENT}";
 			var comSubmit = new ComSubmit("frm");
 			comSubmit.setUrl("<c:url value='/memoboard/insertReply.do' />");
 			comSubmit.addParam("IDX", idx);
