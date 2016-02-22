@@ -28,8 +28,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void updateMember(Map<String, Object> map) throws Exception {
+	public Map<String, Object> updateMember(Map<String, Object> map) throws Exception {
 		memberDAO.updateMember(map);
+		Map<String, Object> resultMap = memberDAO.memberInfo(map);
+		return resultMap;
 	}
 	
 	@Override
@@ -37,5 +39,4 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.deleteMember(map);
 		
 	}
-
 }
