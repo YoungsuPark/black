@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.javap.common.commandmap.CommandMap;
@@ -26,7 +25,7 @@ public class MemberController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/member/insertMember.do", method = RequestMethod.POST)
+	@RequestMapping(value="/member/insertMember.do")
 	public ModelAndView insertMember(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/home/mainHome.do");
 		memberService.insertMember(commandMap.getMap());
@@ -39,12 +38,11 @@ public class MemberController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/member/memberInfoDetail.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/openMemberInfo.do")
 	public ModelAndView memberInfo(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/member/memberInfoDetail");
 		Map<String, Object> map = memberService.memberInfo(commandMap.getMap());
 		mv.addObject("memberInfo", map);
-		log.debug(map);
 		return mv;
 	}
 	/**
@@ -53,8 +51,8 @@ public class MemberController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/member/openMemberUpdatePage.do", method = RequestMethod.POST)
-	public ModelAndView openModifyMemberContentView(CommandMap commandMap) throws Exception {
+	@RequestMapping(value = "/member/openMemberInfoUpdate.do")
+	public ModelAndView openMemberInfoUpdatePage(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/member/memberInfoUpdate");
 		Map<String, Object> map = memberService.memberInfo(commandMap.getMap());
 		mv.addObject("memberInfo", map);
@@ -66,9 +64,9 @@ public class MemberController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/member/modifyMember.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/memberInfoUpdate.do")
 	public ModelAndView modifyMember(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/member/memberInfoDetail.do");
+		ModelAndView mv = new ModelAndView("redirect:/home/mainHome.do");
 		memberService.updateMember(commandMap.getMap());
 		return mv;
 	}
@@ -78,7 +76,7 @@ public class MemberController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/member/deleteMember.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/deleteMember.do")
 	public ModelAndView deleteMember(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/home/mailHome.do");
 		memberService.deleteMember(commandMap.getMap());
