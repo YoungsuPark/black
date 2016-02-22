@@ -23,13 +23,12 @@ public class MemberDAO extends AbstractDAO{
 		return (Map<String, Object>)selectOne("member.memberInfo", map);
 	}
 
-	public void updateMember(Map<String, Object> map) {
+	public void updateMember(Map<String, Object> map) throws Exception {
 		update("member.updateMember", map);
 	}
 
-	public void deleteMember(Map<String, Object> map) {
+	public void deleteMember(Map<String, Object> map)throws Exception {
 		delete("member.deleteMember", map);
 		
 	}
-
 }
