@@ -9,48 +9,71 @@
 <body>
 	<article class="container">
 		<div class="page-header">
-			<h1>회원정보</h1>
+			<h1>개인정보 변경하기</h1>
 		</div>
 		<div class="col-md-6 col-md-offset-3">
-			<form action="/member/modifyMember.do" method="post" name="reg_frm">
-				<input type="hidden" id="index" name="INDEX" value="${memberInfo.index}">
-				<input type="hidden" id="id" name="ID" value="${memberInfo.id}">
+			<form id="frm" name="frm">
+				<input type="hidden" name="IDX" value="${memberInfo.IDX }" >
 				<div class="form-group">
-					<label for="id">아이디</label> 
-					<span id="id" class="label label-default"> ${memberInfo.id}</span>
+					<label for="name">이름</label> 
+					<input class="form-control" id="name" name="NAME" type="text" placeholder="이름을 입력해 주세요">
+				</div>
+				<div class="form-group">
+					<label for="id">아이디</label>
+					<h4><span id="id" class="label label-default"> ${memberInfo.ID} </span></h4>
+				</div>
+				<div class="form-group">
+					<label for="creat_dtm">가입일</label> 
+					<h4><span id="creat_dtm" class="label label-default"> ${memberInfo.CREATE_DTM} </span></h4>
+				</div>
+				<div class="form-group">
+					<label for="email">이메일 주소</label>
+					<div class="input-group">
+						<input id="email" name="EMAIL" type="text" class="form-control" placeholder="이메일 주소" aria-describedby="basic-addon2">
+						<span class="input-group-addon" id="basic-addon2">@gmail.com</span>
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="password">비밀번호</label>
-					<input class="form-control" id="password" name="PASSWORD" type="password" placeholder="재설정 할 비밀번호를 입력해주세요">
+					<input class="form-control" id="password" name="PASSWORD" type="password" placeholder="현재 비밀번호를 입력해주세요">
 				</div>
-				<div class="form-group">
-					<label for="password_check">비밀번호 확인</label>
-					<input class="form-control" id="password_check" type="PASSWORD" placeholder="비밀번호 확인">
-					<p class="help-block">비밀번호 확인을 위해 다시한번 입력 해 주세요</p>
-				</div>
-				<div class="form-group">
-					<label for="userName">이름</label> 
-					<input class="form-control" id="userName" name="USERNAME" type="text" placeholder="이름을 입력해 주세요">
-				</div>
-				<div class="form-group">
-					<label for="age">나이</label>
-					<input class="form-control" id="age" name="AGE" type="text" placeholder="나이를 입력해 주세요">
-				</div>
-				<div class="form-group">
-					<label for="eMail">이메일 주소</label>
-					<input class="form-control" id="eMail" name="EMAIL" type="text" placeholder="변경 할 이메일 주소를 입력해주세요">
-				</div>
-				<div class="form-group text-center">
-					<button class="btn btn-info" type="button" onclick="updateConfirm()"> 회원정보수정<i class="fa fa-check spaceLeft"></i></button>
-					<button class="btn btn-warning" type="button" onclick="javascript:window.location='/'">돌아가기<i class="fa fa-times spaceLeft"></i</button>
-				</div>
-			</form>
+			</form><br /><hr>
+			<div class="left">
+				<a href="#this" class="btn" id="infoUpdate">개인정보변경하기</a>
+				<a href="#this" class="btn" id="return">홈으로</a>
+			</div><br /><br />
 			<hr>
 			<%@ include file="/WEB-INF/include/body_footer.jspf"%>
 		</div>
 	</article>
 	<%@ include file="/WEB-INF/include/body_bottom.jspf"%>
-</body>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$("#infoUpdate").on("click", function(e){
+			e.preventDefault();
+			fn_memberInfoUpdate();
+		});
+		
+		$("#return").on("click", function(e){
+			e.preventDefault();
+			fn_returnMainHome();
+		});
+	});
+	
+	function fn_memberInfoUpdate(){
+		var comSubmit = new ComSubmit("frm");
+		comSubmit.setUrl("<c:url value='/member/memberInfoUpdate.do' />");
+		comSubmit.submit();
+	}
+	
+	function fn_returnMainHome(){
+		var comSubmit = new ComSubmit();
+		comSubmit.setUrl("<c:url value='/home/mainHome.do' />");
+		comSubmit.submit();
+	}
+	</script>
+	<%@ include file="/WEB-INF/include/include-body.jspf"%>
 </body>
 </html>
 

@@ -27,9 +27,13 @@
 						</td>
 					</tr>
 				</tbody>
-			</table>
-			<br />
-			<input type="file" name="file">
+			</table><br />
+	        <div id="fileDiv">
+	            <p>
+	                <input type="file" id="file" name="file_0">
+	                <a href="#this" class="btn" id="delete" name="delete">삭제</a>
+	            </p>
+	        </div>
 			<hr />
 		</form>	
 		<div class="left">
@@ -42,26 +46,35 @@
 	</div>
 	<%@ include file="/WEB-INF/include/body_bottom.jspf" %>
 	<script type="text/javascript">
-		$(document).ready(function(){
-			$("#list").on("click", function(e){ //목록으로 버튼
+		$(document).ready(function() {
+			$("#list").on("click", function(e) { //목록으로 버튼
 				e.preventDefault();
 				fn_openBoardList();
 			});
-			
-			$("#write").on("click", function(e){ //작성하기 버튼
+
+			$("#write").on("click", function(e) { //작성하기 버튼
 				e.preventDefault();
 				fn_insertBoard();
 			});
+
+			$("a[name='delete']").on("click", function(e) { //삭제 버튼
+				e.preventDefault();
+				fn_deleteFile($(this));
+			});
 		});
-		function fn_openBoardList(){
+		function fn_openBoardList() {
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/memoboard/openMemoBoardList.do' />");
 			comSubmit.submit();
 		}
-		function fn_insertBoard(){
+		function fn_insertBoard() {
 			var comSubmit = new ComSubmit("frm");
 			comSubmit.setUrl("<c:url value='/memoboard/insertMemoBoard.do' />");
 			comSubmit.submit();
+		}
+
+		function fn_deleteFile(obj) {
+			obj.parent().remove();
 		}
 	</script>
 </body>

@@ -5,20 +5,18 @@
  	<insert id="insertMember" parameterType="hashmap">
 	  	<![CDATA[
 	        INSERT INTO MEMBERS
-	        (
+	        (  
+	        	NAME,
 	            ID, 
 	            PASSWORD, 
-	            NAME, 
-	            AGE, 
 	            EMAIL,
 	            CREATE_DTM
 	        )
 	        VALUES
 	        (
+	       		#{NAME},
 	            #{ID}, 
-	            #{PASSWORD}, 
-	            #{NAME}, 
-	            #{AGE},
+	            #{PASSWORD},  
 	            #{EMAIL},
 	            SYSDATE()
 	        )
@@ -28,11 +26,15 @@
 	<select id="memberInfo" parameterType="hashmap" resultType="hashmap">
 	    <![CDATA[
 	        SELECT
-	            *
+	            IDX,
+	            NAME,
+	            ID,
+	            EMAIL,
+	            CREATE_DTM
 	        FROM
 	            MEMBERS
 	        WHERE
-	            ID = #{ID}      
+	            IDX = #{IDX}      
 	    ]]>
 	</select>
 	
@@ -40,12 +42,19 @@
 	    <![CDATA[
 	        UPDATE MEMBERS
 	        SET
-	            PASSWORD = #{PASSWORD},
-	            NAME = #{NAME},
-	            AGE = #{AGE},
+	        	NAME = #{NAME},
 	            EMAIL = #{EMAIL}
 	        WHERE
-	            ID = #{ID}    
+	            IDX = #{IDX} AND PASSWORD = #{PASSWORD}
+	    ]]>
+	</update>
+		<update id="updatePassword" parameterType="hashmap">
+	    <![CDATA[
+	        UPDATE MEMBERS
+	        SET        	
+	            PASSWORD = #{PASSWORD}
+	        WHERE
+	            IDX = #{IDX}    
 	    ]]>
 	</update>
 	
@@ -55,7 +64,7 @@
 			SET
 			 	DEL_GB = 'Y'
 			WHERE
-				ID = #{ID}
+				IDX = #{IDX}
 		]]>
 	</update>
  </mapper>

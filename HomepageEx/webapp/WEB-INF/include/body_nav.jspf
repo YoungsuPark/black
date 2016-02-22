@@ -27,15 +27,15 @@
 						<button type="submit" class="btn btn-success">로그인</button>
 						<button type="button" class="btn btn-success" onclick="javascript:window.location='/home/openJoinPage.do'"> 회원가입</button>
 					</form>
-					<c:if test="${empty userInfo}">
+					<c:if test="${not empty LOGINERROR}">
 						<script type="text/javascript">
 							alert("아이디와 비밀번호를 다시 한번 확인해 주시기 바랍니다.");
 						</script>
 					</c:if>
 					</c:when>
 					<c:otherwise>
-						<form class="navbar-form navbar-right" action="/member/memberInfo.do" method="post">
-							<input type="hidden" id="id" name="ID" value="<c:out value="${sessionScope.sessionId}" />" class="form-control">
+						<form class="navbar-form navbar-right" action="/member/openMemberInfo.do" method="post">
+							<input type="hidden" name="IDX" value="<c:out value="${sessionScope.sessionIdx}" />">
 							<button type="submit" class="btn btn-success"><c:out value="${sessionScope.sessionId}" /></button>
 							<button type="button" class="btn btn-success" onclick="javascript:window.location='/home/logout.do'">로그아웃</button>
 						</form>

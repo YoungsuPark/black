@@ -16,12 +16,12 @@
 		<div class="col-md-6 col-md-offset-3">
 			<form id="frm" name="frm">
 				<div class="form-group">
-					<label for="ID">아이디</label>
-					<input class="form-control" id="ID" name="ID" type="text" placeholder="아이디">
+					<label for="id">아이디</label>
+					<input class="form-control" id="id" name="ID" type="text" placeholder="아이디">
 				</div>
 				<div class="form-group">
-					<label for="PASSWORD">비밀번호</label>
-					<input class="form-control" id="PASSWORD" name="PASSWORD" type="password" placeholder="비밀번호">
+					<label for="password">비밀번호</label>
+					<input class="form-control" id="password" name="PASSWORD" type="password" placeholder="비밀번호">
 				</div>
 				<div class="form-group">
 					<label for="password_check">비밀번호 확인</label> 
@@ -29,11 +29,14 @@
 					<p class="help-block">비밀번호 확인을 위해 다시한번 입력 해 주세요</p>
 				</div>
 				<div class="form-group">
-					<label for="EMAIL">이메일 주소</label>
-					<input class="form-control" id="EMAIL" name="EMAIL" type="text" placeholder="이메일 주소">
+					<label for="email">이메일 주소</label>
+					<div class="input-group">
+						<input id="email" name="EMAIL" type="text" class="form-control" placeholder="이메일 주소" aria-describedby="basic-addon2">
+						<span class="input-group-addon" id="basic-addon2">@gmail.com</span>
+					</div>
 				</div>
 			</form><br /><hr>
-			<div class="text-center">
+			<div class="left">
 				<a href="#this" class="btn" id="join">가입하기</a>
 				<a href="#this" class="btn" id="return">홈으로</a>
 			</div><br /><br />

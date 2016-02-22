@@ -51,9 +51,12 @@ public class HomeController {
 	 */
 	@RequestMapping(value="/home/login.do", method = RequestMethod.POST)
 	public ModelAndView login(CommandMap commandMap, HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/home/mainHome.do");
+		ModelAndView mv = new ModelAndView("/home/mainHome");
 		Map<String, Object> user = homeSerivce.login(commandMap.getMap(), session);
 		mv.addObject("userInfo", user);
+		if(user == null){
+			mv.addObject("LOGINERROR", "LOGINERROR");
+		}
 		return mv;
 	}
 	/**
@@ -63,11 +66,10 @@ public class HomeController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/home/logoutMember.do")
+	@RequestMapping(value="/home/logout.do")
 	public ModelAndView logout(CommandMap commandMap, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/home/mainHome.do");
 		session.invalidate();
 		return mv;
 	}
-	
 }

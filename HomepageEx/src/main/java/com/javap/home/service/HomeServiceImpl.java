@@ -25,7 +25,6 @@ public class HomeServiceImpl implements HomeService {
 		if(user != null){
 			session.setAttribute("sessionId", user.get("ID"));
 			session.setAttribute("sessionIdx", user.get("IDX"));
-			session.setAttribute("name", user.get("NAME"));
 		} 
 		return user;
 	}

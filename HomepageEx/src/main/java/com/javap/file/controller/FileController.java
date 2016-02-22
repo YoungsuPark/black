@@ -29,7 +29,7 @@ public class FileController {
 	    String originalFileName = (String)map.get("ORIGINAL_FILE_NAME");
 	     
 	    byte fileByte[] = FileUtils.readFileToByteArray(new File("C:\\devP\\file\\"+storedFileName));
-	     
+	
 	    response.setContentType("application/octet-stream");
 	    response.setContentLength(fileByte.length);
 	    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(originalFileName,"UTF-8")+"\";");
