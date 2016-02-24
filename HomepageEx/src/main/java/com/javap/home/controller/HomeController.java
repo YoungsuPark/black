@@ -27,7 +27,7 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value="/home/mainHome.do")
-	public ModelAndView mainHome(CommandMap commandMap){
+	public ModelAndView mainHome(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/home/mainHome");
 		return mv;
 	}
