@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.javap.common.utils.FileUtil;
 import com.javap.common.utils.PaginationUtil;
 import com.javap.memoboard.dao.MemoBoardDAO;
 
 @Service("mbService")
+@Transactional
 public class MemoBoardServiceImpl implements MemoBoardService {
 	Logger log = Logger.getLogger(this.getClass());
 	
@@ -36,19 +38,18 @@ public class MemoBoardServiceImpl implements MemoBoardService {
 	}
 	
 	@Override
+	@Transactional
 	public void insertMemoBoard(Map<String, Object> map, HttpServletRequest request) throws Exception {
-		mbDAO.insertMemoBoard(map);
+		mbDAO.insertMemoBoard(map);	
+		mbDAO.updateFamliy(map);	
 		
-		if(map != null){
-			map.put("IDX", (int)map.get("idx"));
-			mbDAO.updateFamliy(map);
-		}
 		List<Map<String, Object>> list = fileUtil.InsertFileInfo(map, request);
 		for(int i=0, size=list.size(); i<size; i++)
-			mbDAO.inserFile(list.get(i));
+			mbDAO.inserFile(list.get(i));	
 	}
 	
 	@Override
+	@Transactional
 	public Map<String, Object> selectMemoBoardDetail(Map<String, Object> map) throws Exception {
 		mbDAO.updateHitCnt(map);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -73,10 +74,9 @@ public class MemoBoardServiceImpl implements MemoBoardService {
 	}
 	
 	@Override
+	@Transactional
 	public void insetReply(Map<String, Object> map) throws Exception {
-		log.debug("updateDepth Map : " + map);
 		mbDAO.updateDepth(map);
-		log.debug("insertPeply Map : " + map);
 		mbDAO.insertReply(map);
 	}
 }
