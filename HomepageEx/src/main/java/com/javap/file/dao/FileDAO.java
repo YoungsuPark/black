@@ -9,7 +9,10 @@ import com.javap.common.dao.AbstractDAO;
 @Repository("fileDAO")
 public class FileDAO extends AbstractDAO{
 	/**
-	 * 첨부 파일 정보 조회
+	 * 파일 확인하기
+	 * @param map
+	 * @return
+	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception {
