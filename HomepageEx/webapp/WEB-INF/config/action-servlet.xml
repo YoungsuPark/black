@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.springframework.org/schema/beans"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -11,29 +9,36 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<!-- Controller -->
-	<context:component-scan base-package="com.javap" use-default-filters="false">
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	<context:component-scan base-package="com.javap"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	
+
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
 			<bean class="com.javap.common.resolver.CustomMapArgumentResolver" />
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 	
+	<!-- AOP -->
 	<aop:aspectj-autoproxy />
-	<bean id="AspectLogger" class="com.javap.common.logger.AspectLogger" />
-	
-	<!-- Resources Setting -->
+	<bean id="apmUtil" class="com.javap.common.utils.ApmUtil" />
+
+	<!-- MVC Resources Setting -->
 	<mvc:resources location="/images/" mapping="/images/**" />
 	<mvc:resources location="/fonts/" mapping="/fonts/**" />
 	<mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/css/" mapping="/css/**" />
-	
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/jsp directory -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:order="1" 
-	    p:viewClass="org.springframework.web.servlet.view.JstlView"
+	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"
+		p:order="1" />
+		
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:viewClass="org.springframework.web.servlet.view.JstlView" 
 		p:prefix="/WEB-INF/jsp/"
-		p:suffix=".jsp">
-	</bean>
+		p:suffix=".jsp" 
+		p:order="2">
+	</bean>	
 </beans>
