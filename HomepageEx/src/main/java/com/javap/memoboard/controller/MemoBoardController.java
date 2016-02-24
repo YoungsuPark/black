@@ -1,5 +1,6 @@
 package com.javap.memoboard.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -150,6 +151,21 @@ public class MemoBoardController {
 		return mv;
 	}
 
+	/**
+	 * 게시판 목록 엑셀파일로 다운로드받기
+	 * @param commandMap
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/file/downloadExcelList")
+	public ModelAndView downloadExcelList(CommandMap commandMap) throws Exception {
+		Map<String, Object> resultMap = mbService.selectBoardList(commandMap.getMap());
+		List<Map<String, Object>> list = (List<Map<String, Object>>) resultMap.get("list");
+		return new ModelAndView("excelView","list", list);
+	}
+	
+	
 /*	@RequestMapping(value="/memo/{memoSeq}", method = RequestMethod.GET)
 	public ModelAndView memoDetail(@PathVariable("memoSeq") int memoSeq) throws Exception {
 		ModelAndView mv = new ModelAndView("/memoboard/memoBoardDetail");
