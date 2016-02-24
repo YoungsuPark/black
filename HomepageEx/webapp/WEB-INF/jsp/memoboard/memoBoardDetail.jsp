@@ -26,9 +26,9 @@
 				</tr>
 				<tr>
 					<th scope="row">작성자</th>
-					<td>${recordInfo.CREA_ID }</td>
+					<td>${recordInfo.CREATE_ID }</td>
 					<th scope="row">작성시간</th>
-					<td>${recordInfo.CREA_DTM }</td>
+					<td>${recordInfo.CREATE_DTM }</td>
 				</tr>
 				<tr>
 					<th scope="row">제목</th>
@@ -101,7 +101,7 @@
 				fn_deleteBoard();
 			});
 			
-			$("a[name='file']").on("click", function(e){ // 파일 첨부하기 버튼
+			$("a[name='file']").on("click", function(e){ // 파일 다운로드하기 버튼
 				e.preventDefault();
 				fn_downloadFile($(this));
 			});

@@ -4,7 +4,7 @@
 <mapper namespace="memoboard">
 	<insert id="insertReply" parameterType="hashmap">
 		<![CDATA[
-	        INSERT INTO MEMO_BOARD
+	        INSERT INTO MEMOS
 	        (
 	            TITLE, 
 	            CONTENTS, 
@@ -35,7 +35,7 @@
 
 	<update id="updateFamliy" parameterType="hashmap">
 		<![CDATA[
-			UPDATE MEMO_BOARD
+			UPDATE MEMOS
 			SET
 				FAMILY = #{IDX}
 			WHERE 
@@ -45,7 +45,7 @@
 
 	<update id="updateDepth" parameterType="hashmap">
 		<![CDATA[
-			UPDATE MEMO_BOARD
+			UPDATE MEMOS
 			SET 
 				DEPTH = DEPTH + 1
 			WHERE 

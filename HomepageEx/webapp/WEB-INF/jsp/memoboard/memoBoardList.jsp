@@ -42,7 +42,7 @@
 									<input type="hidden" id="IDX" value="${row.IDX}">
 								</td>
 								<td>${row.HIT_CNT}</td>
-								<td>${row.CREA_DTM}</td>
+								<td>${row.CREATE_DTM}</td>
 							</tr>
 						</c:forEach>
 					</c:when>
@@ -57,6 +57,7 @@
 		<br/>
 		<div class="text-right">
 			<a href="#this" class="btn" id="write">글쓰기</a>
+			<a href="#this" class="btn" id="excel">리스트 엑셀파일로 다운받기</a>
 		</div>
 		<hr>
 		<div class="text-center">
@@ -95,6 +96,11 @@
 				e.preventDefault();
 				fn_openBoardDetail($(this));
 			});
+			
+			$("#excel").on("click", function(e){
+				e.preventDefault();
+				fn_downloadExcel();
+			})
 		});		
 		function fn_openBoardWrite(){
 			var comSubmit = new ComSubmit();
@@ -105,6 +111,11 @@
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/memoboard/openMemoBoardDetail.do' />");
 			comSubmit.addParam("IDX", obj.parent().find("#IDX").val());
+			comSubmit.submit();
+		}
+		function fn_downloadExcel(){
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/file/downloadExcelList' />");
 			comSubmit.submit();
 		}
 	</script>	
