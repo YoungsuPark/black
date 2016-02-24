@@ -44,7 +44,7 @@ public class FileUtil {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Map<String, Object> listMap = new HashMap<String, Object>();
 		
-		int boardIdx = (int)map.get("idx");
+		int boardIdx = (int)map.get("IDX");
 		
 		File file = new File(filePath);
 		if(file.exists() == false){
