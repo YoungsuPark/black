@@ -82,4 +82,15 @@ public class MemberController {
 		memberService.deleteMember(commandMap.getMap());
 		return mv;
 	}
+	/**
+	 * 
+	 * @param commandMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/member/openPasswordUpdate.do")
+	public ModelAndView openPasswordUpdatePage(CommandMap commandMap)throws Exception{
+		ModelAndView mv = new ModelAndView("/member/error");
+		return mv;
+	}
 }
