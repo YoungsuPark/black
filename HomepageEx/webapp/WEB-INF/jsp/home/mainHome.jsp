@@ -42,9 +42,9 @@
 				<p><a class="btn btn-default" href="#" role="button">SPRING STUDY START &raquo;</a></p>
 			</div>
 		</div>
-		<hr>
-	<%@ include file="/WEB-INF/include/body_footer.jspf" %>	
+		<hr>	
 	</div>
+	<%@ include file="/WEB-INF/include/body_footer.jspf" %>	
 	<%@ include file="/WEB-INF/include/body_bottom.jspf" %>
 </body>
 </html>

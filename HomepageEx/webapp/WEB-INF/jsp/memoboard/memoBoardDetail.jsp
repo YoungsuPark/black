@@ -42,11 +42,11 @@
 					<td colspan="3">
 					<c:choose>
 						<c:when test="${fn:length(fileList) > 0 }">
-						<c:forEach var="row" items="${fileList }">
-							<input type="hidden" id="IDX" value="${row.IDX }">
-							<a href="#this" name="file">${row.ORIGINAL_FILE_NAME }</a>
-							(${row.FILE_SIZE }Kb)
-						</c:forEach>
+							<c:forEach var="row" items="${fileList }">
+								<input type="hidden" id="IDX" value="${row.IDX }">
+								<a href="#this" id="file" name="file">${row.ORIGINAL_FILE_NAME }</a>
+								(${row.FILE_SIZE }Kb)<br/>
+							</c:forEach>
 						</c:when>
 						<c:otherwise>
 							<p>첨부 파일이 없습니다.</p>
@@ -57,11 +57,6 @@
 			</tbody>
 		</table>
 		<br />
-		<c:if test="${not empty deleteMessage}">
-			<script type="text/javascript">
-				alert("아이디와 비밀번호를 다시 한번 확인해주세요");
-			</script>
-		</c:if>
 		<div>
 		<a href="#this" class="btn" id="list">목록으로</a>
 		<c:choose>
@@ -75,9 +70,9 @@
 		</c:choose>
 		</div>
 		<br /><hr>
-		<%@ include file="/WEB-INF/include/include-body.jspf" %>
-		<%@ include file="/WEB-INF/include/body_footer.jspf" %>
 	</div>
+	<%@ include file="/WEB-INF/include/include-body.jspf" %>
+	<%@ include file="/WEB-INF/include/body_footer.jspf" %>
 	<%@ include file="/WEB-INF/include/body_bottom.jspf" %>
 	<script type="text/javascript">
 		$(document).ready(function(){

@@ -46,9 +46,9 @@
 		<a href="#this" class="btn" id="reply">답글쓰기</a>
 		</div>
 		<br /><hr>
-		<%@ include file="/WEB-INF/include/include-body.jspf" %>
-		<%@ include file="/WEB-INF/include/body_footer.jspf" %>
 	</div>
+	<%@ include file="/WEB-INF/include/include-body.jspf" %>
+	<%@ include file="/WEB-INF/include/body_footer.jspf" %>
 	<%@ include file="/WEB-INF/include/body_bottom.jspf" %>
 	<script type="text/javascript">
 		$(document).ready(function(){

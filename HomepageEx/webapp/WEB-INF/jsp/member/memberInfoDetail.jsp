@@ -39,9 +39,9 @@
 				<a href="#this" class="btn" id="return">홈으로</a>
 			</div><br /><br />
 			<hr>
-			<%@ include file="/WEB-INF/include/body_footer.jspf"%>
 		</div>
 	</article>
+	<%@ include file="/WEB-INF/include/body_footer.jspf"%>
 	<%@ include file="/WEB-INF/include/body_bottom.jspf"%>
 	<script type="text/javascript">
 		$(document).ready(function(){

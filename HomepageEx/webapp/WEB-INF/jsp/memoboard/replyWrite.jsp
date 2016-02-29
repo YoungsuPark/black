@@ -36,9 +36,9 @@
 			<a href="#this" class="btn" id="list">목록으로</a>
 		</div>
 		<br />
-		<%@ include file="/WEB-INF/include/include-body.jspf" %>
-		<%@ include file="/WEB-INF/include/body_footer.jspf" %>
 	</div>
+	<%@ include file="/WEB-INF/include/include-body.jspf" %>
+	<%@ include file="/WEB-INF/include/body_footer.jspf" %>
 	<%@ include file="/WEB-INF/include/body_bottom.jspf" %>
 	<script type="text/javascript">
 		$(document).ready(function(){
