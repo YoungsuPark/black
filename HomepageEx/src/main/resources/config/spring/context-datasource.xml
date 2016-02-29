@@ -9,17 +9,19 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
  
+ 	<!-- JDBC Database Configuration -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		p:driverClassName="${db.driver}" 
 		p:url="${db.url}"
 		p:username="${db.user}" 
 		p:password="${db.password}" />
 
+	<!-- Mybatis Configuration #1 -->
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="mapperLocations" value="classpath:/mapper/**/*_SQL.xml" />
     </bean>
-     
+ 	<!-- Mybatis Configuration #2 -->    
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg index="0" ref="sqlSession"/>
     </bean>  
@@ -27,7 +29,7 @@
 	<!-- Transaction Manager -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource" />
-
+		
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
 </beans>
